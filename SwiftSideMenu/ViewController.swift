@@ -51,7 +51,7 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
     
 
     @IBAction func toggleSideMenu(_ sender: AnyObject) {
-        toggleSideMenuView()
+        self.toggleSideMenuView()
     }
     
     // MARK: - ENSideMenu Delegate
