@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "69B2FF80D084B10FDF30DC547272118856C0BFF3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "69B2FF80D084B10FDF30DC547272118856C0BFF3" : 9223372036854775807,
+    "CD1557C3AE966BEDF3490D85F9712687801B146C" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "470D941A-F07B-4068-A553-504AD9474763",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "69B2FF80D084B10FDF30DC547272118856C0BFF3" : "Example\/",
+    "CD1557C3AE966BEDF3490D85F9712687801B146C" : "Example\/XCGLogger\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftSideMenu",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SwiftSideMenu.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:joseph-zhong\/CommuterBuddy-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "69B2FF80D084B10FDF30DC547272118856C0BFF3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DaveWoodCom\/XCGLogger.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CD1557C3AE966BEDF3490D85F9712687801B146C"
+    }
+  ]
+}
