@@ -71,6 +71,8 @@
 		7CC687B51D98B859006D1DD9 /* search25.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC687B41D98B859006D1DD9 /* search25.png */; };
 		7CC687B71D98B879006D1DD9 /* menu25.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC687B61D98B879006D1DD9 /* menu25.png */; };
 		7CC687BA1D98B8B0006D1DD9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CC687B91D98B8B0006D1DD9 /* MapKit.framework */; };
+		7CF8A81C1D9AF2680033135E /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF8A81B1D9AF2680033135E /* Unit.swift */; };
+		7CF8A81E1D9AFDB00033135E /* CommuterBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF8A81D1D9AFDB00033135E /* CommuterBuddy.swift */; };
 		9E4766FC19DDBCE900FCEACC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C13258C198E2A9A00CA49BE /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +156,8 @@
 		7CC687B41D98B859006D1DD9 /* search25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search25.png; sourceTree = "<group>"; };
 		7CC687B61D98B879006D1DD9 /* menu25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu25.png; sourceTree = "<group>"; };
 		7CC687B91D98B8B0006D1DD9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7CF8A81B1D9AF2680033135E /* Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
+		7CF8A81D1D9AFDB00033135E /* CommuterBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommuterBuddy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,7 @@
 		1429137B19D979A50025188A /* Storyboard Example */ = {
 			isa = PBXGroup;
 			children = (
+				7C420BD71D98F23E00FA67E6 /* Utility */,
 				7C94142E1D9A211E00415069 /* Models */,
 				5C132588198E2A9A00CA49BE /* AppDelegate.swift */,
 				1429139419DAA9C00025188A /* Controllers */,
@@ -230,7 +235,6 @@
 			children = (
 				7C94142C1D9A199F00415069 /* pin_filled.png */,
 				7C94142A1D99BC8300415069 /* pin.png */,
-				7C420BD71D98F23E00FA67E6 /* Utility */,
 				7CC687B61D98B879006D1DD9 /* menu25.png */,
 				7CC687B41D98B859006D1DD9 /* search25.png */,
 				7CC687B01D98B794006D1DD9 /* search.png */,
@@ -329,6 +333,8 @@
 		7C94142E1D9A211E00415069 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7CF8A81B1D9AF2680033135E /* Unit.swift */,
+				7CF8A81D1D9AFDB00033135E /* CommuterBuddy.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -457,9 +463,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CF8A81E1D9AFDB00033135E /* CommuterBuddy.swift in Sources */,
 				7C420C141D98F23E00FA67E6 /* ErrorTypeExtensions.swift in Sources */,
 				7C420C1C1D98F23E00FA67E6 /* NSTimerExtensions.swift in Sources */,
 				7C420C271D98F23E00FA67E6 /* UIFontExtensions.swift in Sources */,
+				7CF8A81C1D9AF2680033135E /* Unit.swift in Sources */,
 				7C420C2D1D98F23E00FA67E6 /* UISwitchExtensions.swift in Sources */,
 				7C420C261D98F23E00FA67E6 /* UIDeviceExtensions.swift in Sources */,
 				7C420C201D98F23E00FA67E6 /* UIAlertControllerExtensions.swift in Sources */,

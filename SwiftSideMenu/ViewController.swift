@@ -15,15 +15,14 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
     
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var searchBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!    
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var alarmSwitch: UISwitch!
+    @IBOutlet weak var unitLabel: UILabel!
     
     var locationManager: CLLocationManager!
     var geocoder: CLGeocoder!
     
-    var destination: CLLocationCoordinate2D?
-    var userLocation: CLLocation?
-    
-    var destinationAddress: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +30,15 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
         // ENSideMenu Delegate
         self.sideMenuController()?.sideMenu?.delegate = self
         
-        // searchBarButton Delegate
+        // searchBarButton gestures
         self.searchBarButtonItem.action = #selector(self.toggleDestinationTextField)
         self.searchBarButtonItem.target = self
+        
+        // distanceSlider gestures
+//        self.distanceSlider.addTarget(self, action: #selector(self.changeLabelValue), for: UIControlEvents.valueChanged)
+        
+        // alarmSwitch gesture
+        self.alarmSwitch.addTarget(self, action: #selector(self.toggleAlarm), for: UIControlEvents.valueChanged)
         
         // hide keyboard
         self.hideKeyboardWhenTappedAround()
@@ -78,30 +83,36 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
     }
     
     func sideMenuWillClose() {
-        print("sideMenuWillClose")
+        print("ViewController: sideMenuWillClose")
     }
     
     func sideMenuShouldOpenSideMenu() -> Bool {
-        print("sideMenuShouldOpenSideMenu")
+        print("ViewController: sideMenuShouldOpenSideMenu")
         return true
     }
     
     func sideMenuDidClose() {
-        print("sideMenuDidClose")
+        print("ViewController: sideMenuDidClose")
     }
     
     func sideMenuDidOpen() {
-        print("sideMenuDidOpen")
+        print("ViewController: sideMenuDidOpen")
     }
     
     // MARK: - CLLocationManager Delegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last!
+        // first time retrieving location
+        if userLocation == nil {
+            self.setMapRegion(location: location)
+        }
+        
+        userLocation = location
         print("locationManager: didUpdateLocations \(locations)")
         
-        if self.userLocation == nil {
-            self.userLocation = location
-            self.setMapRegion(location: location)
+        if destination != nil {
+            distanceFromDest = Float(userLocation!.distance(from: destination!))
+            self.changeLabelValue(distance: metersToMiles(meters: distanceFromDest!))
         }
         
         // ???
@@ -163,10 +174,12 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
         print("mapView: regionDidChangeAnimated \(animated)")
         
         // update destination
-        self.destination = self.mapView.centerCoordinate
-        print("mapView: destination \(self.mapView.centerCoordinate)")
-        self.setDestinationTextField(location: CLLocation(latitude: self.destination!.latitude, 
-                                                          longitude: self.destination!.longitude))
+        destination = CLLocation(latitude: self.mapView.centerCoordinate.latitude, 
+                                      longitude: self.mapView.centerCoordinate.longitude)
+        distanceFromDest = Float(userLocation!.distance(from: destination!))
+        print("mapView: destination \(destination)")
+        self.setDestinationTextField(location: destination!)
+        self.changeLabelValue(distance: metersToMiles(meters: distanceFromDest!))
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -197,10 +210,17 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
             if error == nil && placemarks != nil && (placemarks?.count)! > 0 {
                 print("setDestinationTextField placemarks: \(placemarks)")
                 let placemark = placemarks![0]
-                if placemark.subAdministrativeArea != nil {
+                if placemark.thoroughfare != nil {
                     self.destinationTextField.text = placemark.thoroughfare!
-                    print("destinationTextField text: \(self.destinationTextField.text)")
                 }
+                else if placemark.subThoroughfare != nil {
+                    self.destinationTextField.text = placemark.subThoroughfare!
+                }
+                else {
+                    self.destinationTextField.text = ""
+                }
+                print("destinationTextField text: \(self.destinationTextField.text)")
+                self.changeLabelValue(distance: metersToMiles(meters: Float(userLocation!.distance(from: location)))) 
             }
             else {
                 print("setDestinationTextField error: \(error)")
@@ -208,10 +228,29 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
         }
     }
     
-    // MARK: - Tap Gestures
+    // MARK: - Gesture Targets
     func toggleDestinationTextField(){
-        self.destinationTextField.isHidden = !self.destinationTextField.isHidden
-        print("toggleDestinationTextField: isHidden \(self.destinationTextField.isHidden)")
+        self.destinationTextField.becomeFirstResponder()
+        print("toggleDestinationTextField: focus \(self.destinationTextField.isFocused)")
+    }
+    
+    func toggleAlarm() {
+        print("toggleAlarm: isOn \(self.alarmSwitch.isOn)")
+        if self.alarmSwitch.isOn {
+            // engage alarm
+            // enter background loop
+            //  check distance and region entering
+            //  draw overlay
+            // end loop sound alarm
+        }
+    }
+    
+    func changeLabelValue(distance: Float) {
+        // update value 
+        self.distanceLabel.text = String(format: "%.2f", distance)
+        print("changeLabelValue: text \(self.distanceLabel.text)")
+        
+        
     }
 }
 

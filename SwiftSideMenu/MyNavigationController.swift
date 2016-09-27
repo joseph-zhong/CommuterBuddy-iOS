@@ -29,19 +29,19 @@ class MyNavigationController: ENSideMenuNavigationController, ENSideMenuDelegate
     
     // MARK: - ENSideMenu Delegate
     func sideMenuWillOpen() {
-        print("sideMenuWillOpen")
+        print("MyNavigationController: sideMenuWillOpen")
     }
     
     func sideMenuWillClose() {
-        print("sideMenuWillClose")
+        print("MyNavigationController: sideMenuWillClose")
     }
     
     func sideMenuDidClose() {
-        print("sideMenuDidClose")
+        print("MyNavigationController: sideMenuDidClose")
     }
     
     func sideMenuDidOpen() {
-        print("sideMenuDidOpen")
+        print("MyNavigationController: sideMenuDidOpen")
     }
     
     
