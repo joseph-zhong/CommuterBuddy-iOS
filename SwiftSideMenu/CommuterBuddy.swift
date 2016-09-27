@@ -8,9 +8,11 @@
 
 import Foundation
 import CoreLocation
+import MapKit
+import AVFoundation
 
 var destination: CLLocation?
-var userLocation: CLLocation?
+var userLocation = CLLocation(latitude: 47.606200001, longitude: 122.332100001)
 
 var destinationAddress: String?
 var distanceFromDest: Float?

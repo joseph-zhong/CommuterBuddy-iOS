@@ -20,7 +20,14 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
     @IBOutlet weak var alarmSwitch: UISwitch!
     @IBOutlet weak var unitLabel: UILabel!
     
-    var locationManager: CLLocationManager!
+    lazy var locationManager: CLLocationManager! = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestAlwaysAuthorization()
+        return manager
+    }()
+    
     var geocoder: CLGeocoder!
     
     
@@ -45,12 +52,8 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
 
         // locationManager
         if (CLLocationManager.locationServicesEnabled()) {
-            self.locationManager = CLLocationManager()
-            self.locationManager.delegate = self
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.requestAlwaysAuthorization()
             self.locationManager.startUpdatingLocation()
-            self.locationManager.startUpdatingHeading()
+            self.locationManager.startUpdatingHeading()          
         }
         else {
             // TODO: do something here
@@ -103,7 +106,8 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last!
         // first time retrieving location
-        if userLocation == nil {
+        if userLocation.coordinate.latitude == 47.606200001 
+                && userLocation.coordinate.longitude == 122.332100001 {
             self.setMapRegion(location: location)
         }
         
@@ -111,18 +115,16 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
         print("locationManager: didUpdateLocations \(locations)")
         
         if destination != nil {
-            distanceFromDest = Float(userLocation!.distance(from: destination!))
+            distanceFromDest = Float(userLocation.distance(from: destination!))
             self.changeLabelValue(distance: metersToMiles(meters: distanceFromDest!))
         }
         
-        // ???
-//        var coordinates = [CLLocationCoordinate2D]()
-//        for l in locations {
-//            coordinates.append(l.coordinate)
-//        }
-//        
-//        let polyline = MKPolyline(coordinates: coordinates, count: locations.count)
-//        self.mapView.add(polyline)
+        if UIApplication.shared.applicationState == .background {
+            print("locationManager: didUpdateLocations background userLocation \(userLocation)")
+        }
+        else if UIApplication.shared.applicationState == .active {
+            print("locationManager: didUpdateLocations active userLocation \(userLocation)")
+        }
     }
     
     
@@ -176,7 +178,7 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
         // update destination
         destination = CLLocation(latitude: self.mapView.centerCoordinate.latitude, 
                                       longitude: self.mapView.centerCoordinate.longitude)
-        distanceFromDest = Float(userLocation!.distance(from: destination!))
+        distanceFromDest = Float(userLocation.distance(from: destination!))
         print("mapView: destination \(destination)")
         self.setDestinationTextField(location: destination!)
         self.changeLabelValue(distance: metersToMiles(meters: distanceFromDest!))
@@ -220,7 +222,7 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
                     self.destinationTextField.text = ""
                 }
                 print("destinationTextField text: \(self.destinationTextField.text)")
-                self.changeLabelValue(distance: metersToMiles(meters: Float(userLocation!.distance(from: location)))) 
+                self.changeLabelValue(distance: metersToMiles(meters: Float(userLocation.distance(from: location)))) 
             }
             else {
                 print("setDestinationTextField error: \(error)")
