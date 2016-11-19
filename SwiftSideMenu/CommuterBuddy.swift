@@ -16,3 +16,5 @@ var userLocation = CLLocation(latitude: 47.606200001, longitude: 122.332100001)
 
 var destinationAddress: String?
 var distanceFromDest: Float?
+
+var thresholdDist: Float?

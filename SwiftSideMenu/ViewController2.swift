@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController2: UIViewController, ENSideMenuDelegate {
 
+    @IBOutlet weak var thresholdDistanceSlider: UISlider!
+    @IBOutlet weak var thresholdDistanceLabel: UILabel!
+    @IBOutlet weak var thresholdDistanceUnitLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         //Move next line to viewWillAppear functon if you store your view controllers
@@ -24,24 +27,23 @@ class ViewController2: UIViewController, ENSideMenuDelegate {
     
     // MARK: - ENSideMenu Delegate
     func sideMenuWillOpen() {
-        print("sideMenuWillOpen")
+        print("ViewController2: sideMenuWillOpen")
     }
     
     func sideMenuWillClose() {
-        print("sideMenuWillClose")
+        print("ViewController2: sideMenuWillClose")
     }
     
     func sideMenuDidClose() {
-        print("sideMenuDidClose")
+        print("ViewController2: sideMenuDidClose")
     }
     
     func sideMenuDidOpen() {
-        print("sideMenuDidOpen")
+        print("ViewController2: sideMenuDidOpen")
     }
     
-    
     func sideMenuShouldOpenSideMenu() -> Bool {
-        print("sideMenuShouldOpenSideMenu")
+        print("ViewController2: sideMenuShouldOpenSideMenu")
         return true
     }
 

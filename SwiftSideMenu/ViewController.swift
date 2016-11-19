@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import UserNotifications
 //import XCGLogger
 
 class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDelegate, MKMapViewDelegate {
@@ -121,12 +122,43 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
         
         if UIApplication.shared.applicationState == .background {
             print("locationManager: didUpdateLocations background userLocation \(userLocation)")
+            //  check distance and region entering
+            //  draw overlay
+            // end loop sound alarm
+            if self.alarmSwitch.isOn && distanceFromDest! <= thresholdDist! {
+                //  check distance and region entering
+                
+            }
+            
         }
         else if UIApplication.shared.applicationState == .active {
             print("locationManager: didUpdateLocations active userLocation \(userLocation)")
         }
     }
     
+    func fireNotification() -> Void { 
+        let content = UNMutableNotificationContent()
+        content.title = NSString.localizedUserNotificationString(forKey: "Destination Reached!", arguments: nil)
+        content.body = NSString.localizedUserNotificationString(forKey: "", arguments: nil)
+        content.sound = UNNotificationSound.default()
+        
+        // Deliver the notification in five seconds.
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "FiveSecond", content: content, trigger: trigger)
+        
+        // Schedule the notification.
+        let center = UNUserNotificationCenter.current()
+        center.add(request)
+//        
+//        
+//        let notificationContent = UNNotificationContent()
+////        notificationContent.title = "Destination Reached"
+////        notificationContent.sound = 
+//        let notificationRequest = UNNotificationRequest(identifier: "Notification", 
+//                                                        content: notificationContent, 
+//                                                        trigger: UNNotificationTrigger?)
+        
+    }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.locationManager.stopUpdatingLocation()
@@ -238,12 +270,12 @@ class ViewController: UIViewController, ENSideMenuDelegate, CLLocationManagerDel
     
     func toggleAlarm() {
         print("toggleAlarm: isOn \(self.alarmSwitch.isOn)")
+        
         if self.alarmSwitch.isOn {
-            // engage alarm
-            // enter background loop
-            //  check distance and region entering
-            //  draw overlay
-            // end loop sound alarm
+            self.distanceLabel.textColor = UIColor.blue
+        }
+        else {
+            self.distanceLabel.textColor = UIColor.black
         }
     }
     
